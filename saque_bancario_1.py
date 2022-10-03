@@ -9,7 +9,7 @@ while True:
     [s] Sacar valor:
     [e] Visualizar Extrato:
     [f] Sair do Sistema:
-""").upper()
+                """).upper()
     
     if var == 'D':
         valor = float(input("Insira o valor que deseja depositar: "))
