@@ -1,7 +1,7 @@
 from model_SB import *
 
 SAQUES_DIAS = 1
-VALOR_EM_CONTA = 0
+VALOR_EM_CONTA =[]
 EXTRATO = []
 CLIENTES = []
 CONTAS_CORRENTE = []
@@ -14,17 +14,20 @@ while True:
     [5] Sacar valor:
     [6] Visualizar Extrato:
     [0] Sair do Sistema:
-                """).upper()
+                """)
     if var =='1':
         criar_cliente(CLIENTES)
     
+    elif var == '2':
+        criar_conta_corrente(CLIENTES,CONTAS_CORRENTE)
+        print(CONTAS_CORRENTE)
     elif var =='3':
         listar_clientes(lista_clientes=CLIENTES)
             
     elif var == '4':
-        valor = float(input("Insira o valor que deseja depositar: "))
-        VALOR_EM_CONTA = depositar(valor,VALOR_EM_CONTA,EXTRATO)
-        print(VALOR_EM_CONTA)
+       
+        depositar(CONTAS_CORRENTE,EXTRATO)
+        print(CONTAS_CORRENTE)
     
     elif var =='5':
         valor = float(input("Insira o valor que deseja sacar: "))

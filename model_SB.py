@@ -21,8 +21,25 @@ def criar_cliente(lista_cliente):
     }
     lista_cliente.append(cliente)
 
-def criar_conta_corrente():
-    pass
+def criar_conta_corrente(lista_cliente,lista_conta):
+    agencia = input("Agência: ")
+    numero = input("Número da conta: ")
+    usuario = input("Usuario da conta(CPF): ")
+   
+    for i in range(len(lista_cliente)):
+        conta_cliente = lista_cliente[i]
+        if conta_cliente['cpf'] in usuario:
+            conta = {
+            'agencia': agencia,
+            'numero': numero,
+            'usuario': usuario,
+            'valor_conta': 0
+            }
+            lista_conta.append(conta)
+        else:
+            print("Usuário inexistente:\n")
+            criar_conta_corrente(lista_cliente,lista_conta)
+    
 def listar_clientes(lista_clientes):
     for i in range (len(lista_clientes)):
             view = lista_clientes[i]
@@ -34,7 +51,7 @@ def listar_clientes(lista_clientes):
             CPF: {view['cpf']}
             """)
 
-'''função de saque ok!!!'''
+
 def saque(valor_saque,saque_dias,valor_conta,extrato):
     if saque_dias > 3:
         print("\nLimite de saque diario exedido:")
@@ -60,16 +77,22 @@ def saque(valor_saque,saque_dias,valor_conta,extrato):
         print("Saldo insuficiente:")
         
     
-'''função de deposito ok!!!'''
-def depositar(valor_deposito,valor_conta,extrat):
-    if valor_deposito > 0:
-        valor_conta = round(valor_conta +valor_deposito,2)
-        extrat.append(f"R$ {valor_deposito} deposito em {date.today()}")
-        return valor_conta
-    else:
-        print("Não é possivel depositar um valor negativo!")
-        return valor_conta
-    
+
+def depositar(conta_corrente,extrat):
+    numero_conta = input("Informe o número da sua conta: ")
+    for i in range(len(conta_corrente)):
+        conta = conta_corrente[i]
+        if conta['numero'] in numero_conta:
+            valor_deposito = float(input("Insira o valor que deseja depositar: "))
+            if valor_deposito > 0:
+                conta['valor_conta'] = round(conta['valor_conta'] +valor_deposito,2)
+                extrat.append(f"R$ {valor_deposito} deposito em {date.today()}")
+                
+            else:
+                print("Não é possivel depositar um valor negativo!")
+                
+        
+            
 '''função de extrato ok!!!'''
 def extrato(valor_conta,extrat):
     print(f"\nValor em conta: {valor_conta}")
