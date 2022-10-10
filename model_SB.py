@@ -1,8 +1,12 @@
 from datetime import date
+<<<<<<< HEAD
 
 
 CONTATOR_CONTAS = 0
 
+=======
+CONTATOR_CONTAS = 1
+>>>>>>> 5cd1fdecf22480f468f813fb9069108de1bf8c41
 def criar_cliente(lista_cliente):
     nome = input("Nome: ")
     nascimento = input("Data de nascimento: ")
@@ -21,7 +25,11 @@ def criar_cliente(lista_cliente):
         'dataNasc': nascimento,
         'endereco': endereco,
         'cpf': cpf,
+<<<<<<< HEAD
         'numero_conta': '0'
+=======
+        'conta': '0'
+>>>>>>> 5cd1fdecf22480f468f813fb9069108de1bf8c41
     }
     arquivo = open('clientes.txt','a')
     arquivo.write("Nome: "+cliente['nome'])
@@ -33,16 +41,28 @@ def criar_cliente(lista_cliente):
     #lista_cliente.append(cliente)
 
 def criar_conta_corrente(lista_cliente,lista_conta):
+<<<<<<< HEAD
     
     global CONTATOR_CONTAS  
     CONTATOR_CONTAS = CONTATOR_CONTAS + 1
+=======
+    global CONTATOR_CONTAS
+    numero = str(CONTATOR_CONTAS)
+    CONTATOR_CONTAS = CONTATOR_CONTAS +1
+
+>>>>>>> 5cd1fdecf22480f468f813fb9069108de1bf8c41
     usuario = input("Usuario da conta(CPF): ")
    
     for i in range(len(lista_cliente)):
         conta_cliente = lista_cliente[i]
-        if conta_cliente['cpf'] in usuario:
+        
+        print(f"CPF ->{conta_cliente['cpf']} -> {usuario}")
+
+        if conta_cliente['cpf'] in usuario :
+            
             conta = {
             'agencia': '0001',
+<<<<<<< HEAD
             'numero': str(CONTATOR_CONTAS),
             'usuario': conta_cliente['nome'],
             'saldo': 0
@@ -58,6 +78,20 @@ def criar_conta_corrente(lista_cliente,lista_conta):
                 criar_conta_corrente(lista_cliente,lista_conta)
             else:
                 pass
+=======
+            'numero': numero,
+            'usuario': conta_cliente['nome'],
+            'valor_conta': 0,
+            'extrato':[],
+            'qtd_saques':1
+            }
+            conta_cliente['conta'] = numero
+            lista_conta.append(conta)
+        else:
+            """print("Usuário inexistente:\n")
+            criar_conta_corrente(lista_cliente,lista_conta)
+    """
+>>>>>>> 5cd1fdecf22480f468f813fb9069108de1bf8c41
 def listar_clientes(lista_clientes):
     for i in range (len(lista_clientes)):
             view = lista_clientes[i]
@@ -67,28 +101,35 @@ def listar_clientes(lista_clientes):
             Data de Nascimento:{view['dataNasc']}
             Endereço: {view['endereco']}
             CPF: {view['cpf']}
+            Conta Corrente: {view['conta']}
             """)
 
 
-def saque(valor_saque,saque_dias,valor_conta,extrato):
-    if saque_dias > 3:
-        print("\nLimite de saque diario exedido:")
-        return valor_conta,saque_dias
+def saque(conta_corrente,numero_conta):
     
-    elif valor_conta > valor_saque:
+
+    for i in range(len(conta_corrente)):
+        conta = conta_corrente[i]
+        if conta['numero'] in numero_conta:
+            valor_saque = float(input("Insira o valor que deseja sacar: "))
+    
+    if conta['qtd_saques'] > 3:
+        print("\nLimite de saque diario exedido:")
+        
+    elif conta['valor_conta'] > valor_saque:
         if valor_saque > 500:
             print("""
             valor de saque indisponivel:
             Valor Máximo de saque é de R$ 500.       
                     """)
-            return valor_conta,saque_dias
-
-        elif valor_conta >= valor_saque:
-            valor_conta = round(valor_conta - valor_saque,2)
-            extrato.append(f"R$ {valor_saque} saque em {date.today()}")
             
-            saque_dias+=1
-            return valor_conta,saque_dias
+
+        elif conta['valor_conta'] >= valor_saque:
+            conta['valor_conta'] = round(conta['valor_conta'] - valor_saque,2)
+            conta['extrato'].append(f"R$ {valor_saque} saque em {date.today()}")
+            
+            conta['qtd_saques']+=1
+            
         else:
             print("Saldo em conta indisponivel:")
     else:
@@ -96,6 +137,7 @@ def saque(valor_saque,saque_dias,valor_conta,extrato):
         
     
 
+<<<<<<< HEAD
 def depositar(conta_corrente,extrat):
     if len(conta_corrente) != 0:
         conta  = input("Informe o numero da sua conta")
@@ -121,10 +163,50 @@ def depositar(conta_corrente,extrat):
                     pass
     else:
         print("não existem contas cadastradas:\n")           
+=======
+def depositar(conta_corrente,numero_conta):
+    
+    for i in range(len(conta_corrente)):
+        conta = conta_corrente[i]
+        if conta['numero'] in numero_conta:
+            valor_deposito = float(input("Insira o valor que deseja depositar: "))
+            if valor_deposito > 0:
+                conta['valor_conta'] = round(conta['valor_conta'] +valor_deposito,2)
+                conta['extrato'].append(f"R$ {valor_deposito} deposito em {date.today()}")
+                
+            else:
+                print("Não é possivel depositar um valor negativo!")
+        else:
+            print('Conta inexistente.')     
+
+>>>>>>> 5cd1fdecf22480f468f813fb9069108de1bf8c41
         
             
 '''função de extrato ok!!!'''
-def extrato(valor_conta,extrat):
-    print(f"\nValor em conta: {valor_conta}")
-    for i in range(len(extrat)):
-        print(extrat[i])
+def extrato(conta_corrente,numero_conta):
+    for i in range(len(conta_corrente)):
+        conta = conta_corrente[i]
+        if conta['numero'] in numero_conta:
+            print(f"\nValor em conta: {conta['valor_conta']}")
+            for i in conta['extrato']:
+                print(i)
+
+def view_1():
+    var = input("""
+    [1] Cadastrar Cliente:
+    [2] Cadastrar Conta Corrente:
+    [3] Listar Clientes:
+    [4] Utilizar uma conta:
+    [0] Sair do Sistema:
+                """)
+    
+    return var
+def view_2():
+    var = input("""
+    
+    [D] Depositar valor:
+    [S] Sacar valor:
+    [E] Visualizar Extrato:
+    [0] Sair do Sistema:
+                """).upper()
+    return var
