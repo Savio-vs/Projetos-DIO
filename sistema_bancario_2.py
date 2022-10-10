@@ -1,43 +1,49 @@
+
 from model_SB import *
 
 SAQUES_DIAS = 1
-VALOR_EM_CONTA =[]
-EXTRATO = []
+
 CLIENTES = []
 CONTAS_CORRENTE = []
 while True:
-    var = input("""
-    [1] Cadastrar Cliente:
-    [2] Cadastrar Conta Corrente:
-    [3] Listar Clientes:
-    [4] Depositar valor:
-    [5] Sacar valor:
-    [6] Visualizar Extrato:
-    [0] Sair do Sistema:
-                """)
+    
+    var = view_1()
     if var =='1':
         criar_cliente(CLIENTES)
     
     elif var == '2':
         criar_conta_corrente(CLIENTES,CONTAS_CORRENTE)
         print(CONTAS_CORRENTE)
+    
     elif var =='3':
         listar_clientes(lista_clientes=CLIENTES)
-            
-    elif var == '4':
-       
-        depositar(CONTAS_CORRENTE,EXTRATO)
-        print(CONTAS_CORRENTE)
-    
-    elif var =='5':
-        valor = float(input("Insira o valor que deseja sacar: "))
-        VALOR_EM_CONTA,SAQUES_DIAS = saque(valor,saque_dias=SAQUES_DIAS,valor_conta=VALOR_EM_CONTA,extrato=EXTRATO)
-    
-    elif var == '6':
-        extrato(VALOR_EM_CONTA,EXTRATO)
 
+    elif var =='4':
+        if len(CONTAS_CORRENTE) != 0:
+            conta = input("Numero da sua conta: ")
+            entrada = True
+        else:
+            print("não existe contas cadastradas.")
+            entrada = False
+        while entrada:
+            var = view_2()
+            if var == 'D':
+            
+                depositar(CONTAS_CORRENTE , numero_conta=conta)
+                print(CONTAS_CORRENTE)
+            
+            elif var =='S':
+                saque(CONTAS_CORRENTE,numero_conta=conta)
+            
+            elif var == 'E':
+                extrato(CONTAS_CORRENTE,numero_conta=conta)
+
+            elif var =='0':
+                break
+    
     elif var =='0':
         break
+
     else:
         print(f"'{var}'não é uma opção válida.\nInsira uma opção válida")
         
