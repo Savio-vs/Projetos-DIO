@@ -43,7 +43,6 @@ def criar_conta_corrente(lista_cliente,lista_conta):
     for i in range(len(lista_cliente)):
         conta_cliente = lista_cliente[i]
         
-        #print(f"CPF ->{conta_cliente['cpf']} -> {usuario}")
 
         if conta_cliente['cpf'] == usuario :
             
@@ -58,9 +57,6 @@ def criar_conta_corrente(lista_cliente,lista_conta):
             conta_cliente['conta'] = numero
             lista_conta.append(conta)
         else:
-            """print("Usuário inexistente:\n")
-            criar_conta_corrente(lista_cliente,lista_conta)
-    """
 
 def listar_clientes(lista_clientes):
     for i in range (len(lista_clientes)):
@@ -79,7 +75,6 @@ def saque(conta_corrente,numero_conta):
     
     for i in range(len(conta_corrente)):
         conta = conta_corrente[i]
-        #print(conta)
         if conta['numero'] == numero_conta:
             valor_saque = float(input("Insira o valor que deseja sacar: "))
     

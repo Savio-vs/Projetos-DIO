@@ -13,7 +13,6 @@ while True:
     
     elif var == '2':
         criar_conta_corrente(CLIENTES,CONTAS_CORRENTE)
-        print(CONTAS_CORRENTE)
     
     elif var =='3':
         listar_clientes(lista_clientes=CLIENTES)
@@ -30,7 +29,6 @@ while True:
             if var == 'D':
             
                 depositar(CONTAS_CORRENTE , numero_conta=conta)
-                print(CONTAS_CORRENTE)
             
             elif var =='S':
                 saque(CONTAS_CORRENTE,numero_conta=conta)
