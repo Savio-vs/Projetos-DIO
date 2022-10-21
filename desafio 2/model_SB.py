@@ -56,7 +56,7 @@ def criar_conta_corrente(lista_cliente,lista_conta):
             }
             conta_cliente['conta'] = numero
             lista_conta.append(conta)
-        else:
+        
 
 def listar_clientes(lista_clientes):
     for i in range (len(lista_clientes)):
