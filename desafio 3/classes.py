@@ -1,70 +1,118 @@
-
-from distutils.command.clean import clean
-
-
-class cliente:
-    def __init__(self,nome,nascimento,endereco,cpf) -> None:
-        self.nome = nome
-        self.data = nascimento
+class Cliente:
+    def __init__(self,endereco) -> None:
         self.endereco = endereco
-        self.cpf=cpf
+        self.contas = []
 
-    
-class conta_corrente(cliente):
-    def __init__(self,conta,**kw) -> None:
-        self.conta = conta
-        self.valor_em_conta = 0
-        self.saques_diario = 1
-        self.extrato = []
+    def realizar_transacao(self,conta):
+        pass
+    def adicionar_conta(self,numero):     
+        self.contas.append(Conta_corrente(numero,PessoaFisica.nome))
+
+class PessoaFisica(Cliente):
+    def __init__(self,nome,nascimento,cpf,**kw) -> None:
+        self._nome = nome
+        self._data = nascimento
+        self._cpf=cpf
         super().__init__(**kw)
-    
+
     def __str__(self) -> str:
-        return f"\
+        numero=[]
+        for i in self.contas:
+            numero.append(i.numero)
+        return f'\
         Nome:{self.nome}\n\
-        CPF: {self.cpf}\n\
-        Endereço: {self.endereco}\n\
-        Conta: {self.conta}\n"
+        CPF:{self._cpf}\n\
+        Data de Nascimento:{self._data}\n\
+        Endereço:{self.endereco}\n\
+        Nº da Conta registrada: {numero}\n'
     
-    def Extrato(self):
-        print(f'\
-        Usuário: {self.nome}\n\
-        Valor em conta: {self.valor_em_conta}')
-        for i in range(len(self.extrato)):
-            print(self.extrato[i])
-        
+    @property
+    def nome(self):
+        return self._nome
+    
+    @property
+    def cpf(self):
+        return self._cpf
+
+class Conta():
+    def __init__(self,numero,cliente) -> None:
+        self._saldo = 0
+        self._numero = numero
+        self._cliente = cliente
+        self._agencia = '0001'
+        self._historico = Historico()
+    
+    @classmethod
+    def nova_conta(cls,numero,cliente):
+        return cls(numero,cliente)
+
+    @property
+    def cliente(self):
+        return self._cliente    
+    @property
+    def numero(self):
+        return self._numero
     
     def Saque(self,valor):
         if valor > 500:
             print("valor de saque superior ao permitido.")
-        elif valor > self.valor_em_conta:
+        elif valor > self._saldo:
             print("saldo em conta insuficiente")
-        elif self.saques_diario > 3:
-            print("Saques diarios exedidos.")
+        
         else:
-            self.valor_em_conta = round(self.valor_em_conta - valor,2)
-            self.extrato.append(f'Saque de R$ {valor}')
-            self.saques_diario+=1
-            print("Saque bem sucedido\nAguarde seu dinheiro. ")
+            self._saldo = round(self._saldo - valor,2)
+            self._historico.Transacao('Saque',valor)
+        
+            
     
     def Deposito(self,valor):
-        self.valor_em_conta = valor 
-        self.extrato.append(f'Deposito de R$ {valor}')
+        if valor > 0 :
+            self._saldo += valor 
+        self._historico.Transacao('Deposito',valor)
         
-        print("Deposito concluido:")
 
+class Conta_corrente(Conta):
+    def __init__(self,numero,cliente) :
+        self._limite = 780
+        self._limite_saques = 1
+        super().__init__(numero,cliente)
+    
+    def Saque(self, valor):
+        if self._limite_saques > 3:
+            print("Saques diarios exedidos.")
+        else:
+            super().Saque(valor)
+            self._limite_saques+=1
 
+    def __str__(self) -> str:
+        return f'saldo em conta >{self._saldo}\n\
+        {self._historico.imprimir()}'
+        
+    
+
+class Historico():
+    def __init__(self) :
+        self.extrato = []
+    
+    def Transacao(self,tipo,valor):
+        self.extrato.append(f'transação: {tipo} -- R${valor}')
+    
+    def imprimir(self):
+        for i in self.extrato:
+            print(i)
 def view_1():
-    clean
+   
     var = input("""
-    [1] Criar Conta Corrente:
-    [2] Listar Clientes:
-    [3] Utilizar uma conta:
+    [1] Cadastrar Cliente:
+    [2] Criar Conta:
+    [3] Listar Clientes:
+    [4] Utilizar uma conta:
     [0] Sair do Sistema:
                 """)   
     return var
     
 def view_2():
-    clean
+
     var = input("""
     [D] Depositar valor:
     [S] Sacar valor:
@@ -72,17 +120,3 @@ def view_2():
     [0] Sair do Sistema:
                 """).upper()
     return var
-
-'''Teste
-clientes=['savio','Paulo','Marcio']
-contas=[]
-for i in range(len(clientes)):
-    c = conta_corrente(conta=(i+1),nome=clientes[i],nascimento= '25/02/1997',endereco='Rua 01',cpf='2020')
-    contas.append(c) 
-
-
-for i in contas:
-    if i.conta == 2:
-        print("achei a conta...")'''
-    
-        

@@ -1,38 +1,59 @@
 from classes import *
 
-CONTAS_CORRENTE = []
-CONTADOR = 1
+lista_clientes = []
+contador = 1
 while True:
     
     var = view_1()
-    if var =='1':
-         
-        c = conta_corrente(conta=CONTADOR,
-        nome=input("Nome do cliente: "),
+    if var =='1':# criação do cliente
+        cliente = PessoaFisica(nome=input("Nome: "),    
         nascimento=input("Data de Nascimento: "),
-        endereco=input("Endereço: "),
-        cpf=input("CPF: "))
-        CONTAS_CORRENTE.append(c)
-        CONTADOR+=1
+        cpf=input("CPF: "),
+        endereco=input("Endereço: "))
+        lista_clientes.append(cliente)
+        
+    elif var == '2':# criação da conta
+        saida=False
+        cliente = input("informe o usuáro desta conta:")
+        for i in lista_clientes:
+            if i.nome == cliente:
+                i.adicionar_conta(contador)
+                contador+=1
+                saida = True
+        if saida==False:
+            print("Cliente não encontrado.")
     
-    elif var =='2':
-        for i in CONTAS_CORRENTE:
+    elif var =='3':# listar clientes
+        for i in lista_clientes:
             print(i)
 
-    elif var =='3':
-        if len(CONTAS_CORRENTE) != 0:
-            conta = int(input("Numero da sua conta: "))
-            for i in CONTAS_CORRENTE:
-                if i.conta == conta:
-                    objeto = i
-                    entrada = True
+    elif var =='4':# utilizar uma conta
+        if len(lista_clientes) != 0:
+            cpf = input("Identificador do Cliente(CPF):")
+            for i in lista_clientes:
+                if i.cpf == cpf:
+                    if len(i.contas)==1:
+                        objeto = i.contas[0]
+                        entrada = True
+                    
+                    elif len(i.contas)>1:
+                        conta = int(input("selecione uma conta:"))
+                        for i in i.contas:
+                            if i.numero == conta:
+                                objeto = i
+                                entrada = True
+                    else:
+                        entrada=False
+
+                    
                 else:
                     entrada=False
             if entrada == False:
-                print("Conta Inexistente:")
+                print("Erro 404!:")
         else:
-            print("não existe contas cadastradas.")
+            print("Não existe cadastros.")
             entrada = False
+        
         while entrada:
             var = view_2()
             if var == 'D':
@@ -42,8 +63,10 @@ while True:
             elif var =='S':
                 valor = float(input("Valor de Saque: "))
                 objeto.Saque(valor)
+            
             elif var == 'E':
-                print(objeto.Extrato())
+                print(objeto)
+            
             elif var =='0':
                 break
     
