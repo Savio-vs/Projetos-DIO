@@ -7,7 +7,7 @@ decimal precoInicial = 0;
 decimal precoPorHora = 0;
 
 Console.WriteLine("Seja bem vindo ao sistema de estacionamento!\n" +
-                  "Digite o preço inicial:");
+                  "Digite o preço inicial de entrada:");
 precoInicial = Convert.ToDecimal(Console.ReadLine());
 
 Console.WriteLine("Agora digite o preço por hora:");
@@ -23,13 +23,15 @@ bool exibirMenu = true;
 while (exibirMenu)
 {
     Console.Clear();
-    Console.WriteLine("Digite a sua opção:");
-    Console.WriteLine("1 - Cadastrar veículo");
-    Console.WriteLine("2 - Remover veículo");
-    Console.WriteLine("3 - Listar veículos");
-    Console.WriteLine("4 - Encerrar");
+    Console.WriteLine("===========================");
+    Console.WriteLine("|| Digite a sua opção:   ||");
+    Console.WriteLine("|| 1 - Cadastrar veículo ||");
+    Console.WriteLine("|| 2 - Remover veículo   ||");
+    Console.WriteLine("|| 3 - Listar veículos   ||");
+    Console.WriteLine("|| 4 - Encerrar          ||");
+    Console.WriteLine("===========================");
 
-    switch (Console.ReadLine())
+    switch (opcao = Console.ReadLine())
     {
         case "1":
             es.AdicionarVeiculo();
@@ -45,15 +47,19 @@ while (exibirMenu)
 
         case "4":
             exibirMenu = false;
+            Console.WriteLine("Encerrando Programa...");
             break;
 
         default:
-            Console.WriteLine("Opção inválida");
+            Console.Clear();
+            Console.WriteLine("Opção inválida\nSó são validas opções entre 1 e 4.");
             break;
     }
-
-    Console.WriteLine("Pressione uma tecla para continuar");
+    Console.WriteLine("\n=======================================");
+    Console.WriteLine("Precione Qualquer tecla para continuar:");
+    Console.WriteLine("=======================================");
     Console.ReadLine();
+    //await Task.Delay(5000);
 }
 
-Console.WriteLine("O programa se encerrou");
+
