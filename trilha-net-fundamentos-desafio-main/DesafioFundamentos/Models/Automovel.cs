@@ -7,17 +7,17 @@ namespace DesafioFundamentos.Models.tipoAutomovel
 {
     public class Automovel
     {
-        private decimal valorInial = 0;
+        private decimal valorInicial = 0;
         
         public string placa,tipoVeiculo;
-        public Automovel(decimal valorInial, string placa, string tipo){
-            this.valorInial = valorInial;
+        public Automovel(decimal valorInicial, string placa, string tipo){
+            this.valorInicial = valorInicial;
             this.placa = placa;
             this.tipoVeiculo = tipo;
         }
         
         public decimal getValor(){
-            return this.valorInial;
+            return this.valorInicial;
         }
         
     }   

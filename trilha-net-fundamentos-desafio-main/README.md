@@ -1,38 +1,52 @@
 # DIO - Trilha .NET - Fundamentos
 www.dio.me
 
-## Desafio de projeto
-Para este desafio, você precisará usar seus conhecimentos adquiridos no módulo de fundamentos, da trilha .NET da DIO.
-
 ## Contexto
 Você foi contratado para construir um sistema para um estacionamento, que será usado para gerenciar os veículos estacionados e realizar suas operações, como por exemplo adicionar um veículo, remover um veículo (e exibir o valor cobrado durante o período) e listar os veículos.
 
-## Proposta
-Você precisará construir uma classe chamada "Estacionamento", conforme o diagrama abaixo:
+## Descriçao do Código:
+Foi construido duas classes chamadas "Estacionamento" e "Automovel" conforme o diagrama abaixo:
 ![Diagrama de classe estacionamento](diagrama_classe_estacionamento.png)
 
-A classe contém três variáveis, sendo:
+![Diagrama de classe estacionamento](diagrama_classe_automovel.png)
 
-**precoInicial**: Tipo decimal. É o preço cobrado para deixar seu veículo estacionado.
+## A classe Estacionamento contém um construtor, três variáveis e três métodos, sendo:
 
-**precoPorHora**: Tipo decimal. É o preço por hora que o veículo permanecer estacionado.
+**Estacionamento**: Construtor para instanciar a classe. Tem como parametro precoInicial e precoPorHora digitado pelo usuário na inicialização do programa.
 
-**veiculos**: É uma lista de string, representando uma coleção de veículos estacionados. Contém apenas a placa do veículo.
+**precoInicial**: Variável do tipo decimal. É o preço cobrado para deixar seu veículo estacionado.
 
-A classe contém três métodos, sendo:
+**precoPorHora**: Variável do tipo decimal. É o preço por hora que o veículo permanecer estacionado.
 
-**AdicionarVeiculo**: Método responsável por receber uma placa digitada pelo usuário e guardar na variável **veiculos**.
+**veiculos**: Variável lista de objetos do tipo Automovel, representando uma coleção de veículos estacionados. Cada objeto na lista contém precoInicial, placa e tipoVeiculo (podendo ser corro ou moto)
 
-**RemoverVeiculo**: Método responsável por verificar se um determinado veículo está estacionado, e caso positivo, irá pedir a quantidade de horas que ele permaneceu no estacionamento. Após isso, realiza o seguinte cálculo: **precoInicial** * **precoPorHora**, exibindo para o usuário.
+**AdicionarVeiculo**: Método responsável por receber o tipo do veiculo que está sendo estacionado e uma placa, digitada pelo usuário, instancia um objeto Automovel com os valores fixos no caso de ser um carro ou moto e guardar a referencia do objeto em **veiculos**.
 
-**ListarVeiculos**: Lista todos os veículos presentes atualmente no estacionamento. Caso não haja nenhum, exibir a mensagem "Não há veículos estacionados".
+**RemoverVeiculo**: Método responsável por verificar se um determinado veículo está estacionado, e caso positivo, irá pedir a quantidade de horas que ele permaneceu no estacionamento. Após isso, busca os dados necessários no objeto de referencia e realiza o seguinte cálculo: **precoInicial** * **precoPorHora**, exibindo para o usuário.
 
-Por último, deverá ser feito um menu interativo com as seguintes ações implementadas:
+**ListarVeiculos**: Lista todos os veículos presentes atualmente no estacionamento, mostrando o **TipoVeiculo** e **placa**. Caso não haja nenhum, exibir a mensagem "Não há veículos estacionados".
+
+
+## A classe Automovel contém um construtor, três variáveis e um métodos, sendo:
+
+**Automovel**: Construtor para instanciar a classe. 
+Caso seja um carro tem como parametro (**precoInicial**) digitado pelo usuário,(**placa**) digitado pelo usuário,(**carro**) fixo no codigo. 
+Caso seja uma moto tem como parametro (**precoInicial**/2) digitado pelo usuário,(**placa**) digitado pelo usuário,(**moto**) fixo no codigo.
+
+**precoInicial**: Variável do tipo decimal. É o preço cobrado para deixar seu veículo estacionado.
+
+**placa**: Variável do tipo string. É a placa do veiculo estacionado.
+
+**tipoVeiculo**: Variável do tipo string. Se o veiculo é uma moto ou carro.
+
+**getValor**: Método que retorna o valor inicial pago ao entrar no estacionamento.
+
+
+Por último, um menu interativo com as seguintes ações implementadas:
 1. Cadastrar veículo
 2. Remover veículo
 3. Listar veículos
 4. Encerrar
 
 
-## Solução
-O código está pela metade, e você deverá dar continuidade obedecendo as regras descritas acima, para que no final, tenhamos um programa funcional. Procure pela palavra comentada "TODO" no código, em seguida, implemente conforme as regras acima.
+
